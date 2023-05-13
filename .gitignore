@@ -22,3 +22,6 @@ gradle-app.setting
 
 # Ignore Intellij project configs
 .idea
+
+# Ignore OS configs
+.DS_Store
