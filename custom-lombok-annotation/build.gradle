@@ -1,0 +1,19 @@
+plugins {
+    // id "io.freefair.lombok" version "6.6"
+    // id "com.ewerk.gradle.plugins.annotation-processor" version "1.0.5-SNAPSHOT"
+    id "nebula.lint" version "17.8.0"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+allprojects {
+    apply plugin: "nebula.lint"
+    gradleLint {
+        rules = ['unused-dependency']
+    }
+}
+
+repositories {
+    mavenCentral()
+}
