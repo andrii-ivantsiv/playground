@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.awaitility.Awaitility.await;
 
 /**
@@ -27,8 +28,10 @@ class AsyncNotifiableQueTest {
         IntStream.range(0, addedElementsCount)
                 .mapToObj(String::valueOf)
                 .forEach(strings::add);
-        generateLogNotifier(notifiersCount).forEach(strings::addNotifier); // shouldn't throw ConcurrentModificationException because it is CopyOnWriteArrayList
 
+        assertThatCode(() -> generateLogNotifier(notifiersCount).forEach(strings::addNotifier))
+                .withFailMessage("Shouldn't throw ConcurrentModificationException because it's CopyOnWriteArrayList")
+                .doesNotThrowAnyException();
         await()
                 .atMost(30, TimeUnit.SECONDS)
                 .untilAsserted(() -> assertThat(logCaptor.getLogs())
