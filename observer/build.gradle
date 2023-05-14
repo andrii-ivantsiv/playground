@@ -11,6 +11,7 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     id('java')
     id('io.freefair.lombok') version '8.0.1'
+    id('jacoco')
 }
 
 repositories {
@@ -24,9 +25,11 @@ ext {
 
 dependencies {
     implementation('ch.qos.logback:logback-classic:1.4.7')
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jupiterVersion")
     testImplementation('io.github.hakky54:logcaptor:2.9.0')
     testImplementation('org.assertj:assertj-core:3.24.2')
+    testImplementation('org.awaitility:awaitility:4.0.0')
 }
 
 dependencyLocking {
